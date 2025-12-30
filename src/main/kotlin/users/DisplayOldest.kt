@@ -9,7 +9,7 @@ import javax.swing.JScrollPane
 import javax.swing.JTextArea
 import kotlin.concurrent.thread
 
-class Display {
+class DisplayOldest {
 
 
 
@@ -27,8 +27,8 @@ class Display {
             isResizable = false
             add(scrollPane)
         }
-        UsersRepository.getInstance("qwerty").users.registerObserver {
-            textArea.text = it.joinToString("\n")
+        UsersRepository.getInstance("qwerty").oldestUser.registerObserver {
+            textArea.text = "Oldest person is: $it"
         }
 
     }

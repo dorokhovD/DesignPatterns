@@ -7,9 +7,8 @@ import java.awt.Insets
 import javax.swing.JFrame
 import javax.swing.JScrollPane
 import javax.swing.JTextArea
-import kotlin.concurrent.thread
 
-class Display {
+class Display2 {
 
 
 
@@ -27,9 +26,8 @@ class Display {
             isResizable = false
             add(scrollPane)
         }
-        UsersRepository.getInstance("qwerty").users.registerObserver {
+        UsersRepository2.getInstance("qwerty").registerObserver{
             textArea.text = it.joinToString("\n")
         }
-
     }
 }
