@@ -1,7 +1,6 @@
 package dogs
 
 import dogs.Operation
-import users.UsersRepository
 
 class Administrator {
 
@@ -10,7 +9,7 @@ class Administrator {
     fun work() {
         while (true) {
             println("Enter an operation: ")
-            val operations = dogs.Operation.entries
+            val operations = Operation.entries
             for ((index, operation) in operations.withIndex()) {
                 print("$index - ${operation.title}")
                 if (index == operations.lastIndex) {
@@ -23,8 +22,8 @@ class Administrator {
             val operation = operations[operationsIndex]
 
             when (operation) {
-                dogs.Operation.EXIT -> {
-                    repository.saveChanges()
+                Operation.EXIT -> {
+                    DogsInvoker.addCommand(AdministratorCommands.SaveChanges(repository))
                     break
                 }
                 Operation.ADD_DOG -> addDog()
@@ -40,17 +39,21 @@ class Administrator {
         val dogName = readln()
         print("Enter weight: ")
         val weight = readln().toDouble()
-        DogsInvoker.addCommand {
-            repository.addDog(breed = breedName, name = dogName, weight = weight)
-        }
+        DogsInvoker.addCommand(AdministratorCommands.AddDog(
+            repository = repository,
+            breed = breedName,
+            name = dogName,
+            weight = weight,
+        ))
 
 
     }
     private fun deleteDog() {
         print("Enter id: ")
         val id = readln().toInt()
-        DogsInvoker.addCommand {
-            repository.deleteDog(id = id)
-        }
+        DogsInvoker.addCommand(AdministratorCommands.DeleteDog(
+            repository = repository,
+            id = id
+        ))
     }
 }
